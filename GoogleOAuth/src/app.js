@@ -1,6 +1,6 @@
 let express = require('express')
 let cors = require("cors");
-let authRoutes = require('../src/routes/auth.routes')
+let authRoutes = require('./routes/auth.routes')
 let passport = require('passport');
 const userModel = require('./models/user.model');
 let GoogleStrategy = require('passport-google-oauth20').Strategy
