@@ -4,6 +4,7 @@ let authRoutes = require('../src/routes/auth.routes')
 let passport = require('passport');
 const userModel = require('./models/user.model');
 let GoogleStrategy = require('passport-google-oauth20').Strategy
+let cookieParser = require("cookie-parser")
 
 let app = express()
 
@@ -11,6 +12,7 @@ app.use(cors({
     origin : "http://localhost:5173",
     credentials : true
 }))
+app.use(cookieParser())
 app.use(express.json())
 app.use(passport.initialize())
 
