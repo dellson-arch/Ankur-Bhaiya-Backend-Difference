@@ -6,4 +6,10 @@ const generateToken = (userId)=>{
   })
 }
 
-module.exports = generateToken
+const generateRawToken = (userId)=>{
+  return jwt.sign({id : userId} , process.env.RAW_TOKEN,{
+    expiresIn : '1h'
+  })
+}
+
+module.exports = {generateToken,generateRawToken}

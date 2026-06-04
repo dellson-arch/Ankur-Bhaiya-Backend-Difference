@@ -1,29 +1,11 @@
-const generateToken = require("../helpers/token")
+const {generateToken}= require("../helpers/token")
 const userModel = require("../models/user.model")
+const { registerService, forgetService } = require("../services/auth.service")
 
 
 const register = async(req , res)=>{
- const{name , email ,password} = req.body 
- if(!name , !email){
-    return res.status (404).json({
-        message: "all fields are required"
-    })
- }
-
- const isExisted = await userModel.findOne({email})
- if(isExisted){
-    return res.status(409).json({
-        message : "user already existed"
-    })
- }
-
- const newUser = await userModel.create({
-    name ,
-    email ,
-    password
- })
-
- const token = generateToken(newUser._id) //_id aise likhte hai because mongodb bydefault _id aise deta hai
+ try {
+    const user = registerService(req.body)
 
  const cookie = res.cookie('token' , token)
 
@@ -32,13 +14,29 @@ const register = async(req , res)=>{
     name ,
     email
  })
+ } catch (error) {
+     res.status(400).json({
+      message: error.message,
+    });
+ }
  
 }
 
 const forgetPassword = (req , res)=>{
-   
+   try {
+     const result = forgetService(req.body)
+
+     return res.status(200).json({
+        message : "Link sent",
+     })
+   } catch (error) {
+      res.status(400).json({
+      message: error.message,
+    });
+   }
 }
 
 module.exports = {
-    forgetPassword
+    forgetPassword,
+    register
 }
