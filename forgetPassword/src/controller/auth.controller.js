@@ -3,13 +3,13 @@ const userModel = require("../models/user.model")
 const { registerService, forgetService } = require("../services/auth.service")
 
 
-const register = async(req , res)=>{
+const registerController = async(req , res)=>{
  try {
     const user = registerService(req.body)
 
- const cookie = res.cookie('token' , token)
+    const cookie = res.cookie('token' , token)
 
- return res.status(200).json({
+    return res.status(200).json({
     message : "user registered successfully",
     name ,
     email
@@ -19,10 +19,9 @@ const register = async(req , res)=>{
       message: error.message,
     });
  }
- 
 }
 
-const forgetPassword = (req , res)=>{
+const forgetPasswordController = (req , res)=>{
    try {
      const result = forgetService(req.body)
 
@@ -38,5 +37,5 @@ const forgetPassword = (req , res)=>{
 
 module.exports = {
     forgetPassword,
-    register
+    registerController
 }

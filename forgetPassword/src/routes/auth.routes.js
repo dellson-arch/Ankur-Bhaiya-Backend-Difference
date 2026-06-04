@@ -1,10 +1,12 @@
 const express = require('express')
 const {
     forgetPasswordController,
-    register
+    registerController
 } = require('../controller/auth.controller')
 
 const router = express.Router()
 
-
+router.post('/register' , registerController)
 router.post('/forget-password' , forgetPasswordController)
+
+module.exports = router
